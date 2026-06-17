@@ -1,1 +1,4 @@
 scripts/create_github_roadmap_issues_en.sh.venv/
+data/raw/
+data/processed/
+.venv/
