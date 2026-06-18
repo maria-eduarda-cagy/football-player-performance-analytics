@@ -27,7 +27,7 @@ The dataset contains player-level statistics from the 2022–2023 football seaso
 
 ## Current Status
 
-This project is currently in the data understanding phase.
+This project is currently in the **data cleaning and preparation phase**.
 
 Completed work includes:
 
@@ -39,6 +39,11 @@ Completed work includes:
 * Loaded and inspected the dataset
 * Checked dataset shape, data types, available columns, missing values, and duplicated rows
 * Documented the first observations about the dataset
+* Started the data cleaning notebook: `02_data_cleaning.ipynb`
+* Checked missing values and duplicated records
+* Applied a minimum minutes filter to create an analysis-ready dataset
+* Compared the original dataset shape with the filtered dataset shape
+* Documented the reasoning behind removing players with fewer than 300 minutes
 
 ## Initial Findings
 
@@ -53,6 +58,28 @@ The initial data understanding notebook identified that:
 
 Overall, the dataset appears to be well structured and suitable for the next steps of the project.
 
+## Data Cleaning Decisions
+
+During the data cleaning phase, a minimum minutes filter was applied to reduce noise caused by very small sample sizes.
+
+Players with fewer than **300 minutes played** were removed from the analysis-ready dataset. This decision was made because players with limited playing time may have inflated or unstable per-90 metrics, making comparisons unfair against players who played a more representative number of minutes.
+
+The original dataset shape was:
+
+```text
+(2689, 124)
+```
+
+After applying the 300-minute filter, the filtered dataset shape became:
+
+```text
+(1832, 124)
+```
+
+This means the analysis-ready dataset keeps players with a more representative amount of playing time while preserving the same number of columns.
+
+The raw dataset remains unchanged. The filtered version will be used for the main exploratory analysis, feature engineering, rankings, and clustering steps.
+
 ## Planned Analysis
 
 The project will be developed in stages:
@@ -66,6 +93,16 @@ The project will be developed in stages:
 7. AI-assisted scouting summary
 8. Final documentation and portfolio presentation
 
+## Future Feature: Scouting Profile Finder
+
+A planned feature of this project is the **Scouting Profile Finder**, a scouting-oriented tool that allows users to search for players based on specific role requirements.
+
+Instead of simply ranking players by raw numbers, the user would define the type of player they are looking for, select relevant metrics, and assign weights to each characteristic.
+
+For example, a club looking for a ball-playing center back could prioritize progressive passes, long passing accuracy, defensive actions, aerial duel success, and low error rate. The system would then calculate a role-based scouting score and return a ranked list of players who best match that profile.
+
+This feature aims to make the project more realistic and decision-oriented by connecting statistical analysis with practical scouting needs.
+
 ## Repository Structure
 
 ```text
@@ -73,8 +110,12 @@ football-player-performance-analytics/
 ├── data/
 │   ├── raw/
 │   └── processed/
+├── docs/
+│   ├── analytical_questions.md
+│   └── scouting_profile_finder.md
 ├── notebooks/
-│   └── 01_data_understanding.ipynb
+│   ├── 01_data_understanding.ipynb
+│   └── 02_data_cleaning.ipynb
 ├── src/
 ├── dashboard/
 ├── assets/
@@ -133,13 +174,14 @@ print("Path to dataset files:", path)
 
 ## Next Steps
 
-* Start the data cleaning notebook
-* Standardize column names
-* Validate and adjust data types if needed
-* Investigate the missing value in the `Nation` column
-* Save a cleaned dataset in `data/processed`
-* Create a data dictionary with the main columns
-* Prepare the dataset for exploratory data analysis
+* Finish the data cleaning notebook
+* Save the cleaned dataset in `data/processed`
+* Save the analysis-ready dataset with the 300-minute filter
+* Create or update the data dictionary with the main columns
+* Start the exploratory data analysis notebook
+* Analyze distributions of age, minutes, goals, assists, and positions
+* Compare performance across positions
+* Begin identifying metrics that will be useful for per-90 analysis
 
 ## Project Positioning
 
